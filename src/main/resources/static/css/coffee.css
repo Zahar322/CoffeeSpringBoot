@@ -1,0 +1,41 @@
+.head{
+    height:100px;
+
+    background-color:black	;
+}
+
+.margin{
+    margin-top:30px;
+}
+
+.logo{
+    padding-left:50px;
+}
+
+.content{
+    background-image:url("http://cooks.kz/wp-content/uploads/2016/01/11330859_original.jpg");
+    background-repeat:no-repeat;
+    background-size:cover;
+    height:1000px;
+    overflow: scroll;
+
+}
+
+.margintext{
+    margin-top:35px;
+    font-size:20px;
+}
+
+.foot{
+    height:100px;
+    background-color:black	;
+}
+
+#formContainer{
+    display:none;
+}
+
+.offsetdown{
+    margin-top:400px;
+    font-size:80px;
+}
