@@ -4,6 +4,7 @@ var button=document.getElementById("but");
 var pass=document.querySelector(".pass");
 var springMessages=document.querySelectorAll(".springMessage");
 
+
 var login=document.getElementById("login");
 
 var loc="/main#";
@@ -15,6 +16,7 @@ window.onload=()=>{
     var register=document.getElementById("reg");
 
     var main=document.getElementById("main");
+
 
     if(window.location.href===loc){
         showForm();

@@ -16,6 +16,17 @@ public class Coffee {
     @Column(name="price")
     private int price;
 
+    @Column(name="title_ru")
+    private String titleRu;
+
+    public String getTitleRu() {
+        return titleRu;
+    }
+
+    public void setTitleRu(String titleRu) {
+        this.titleRu = titleRu;
+    }
+
     public int getId() {
         return id;
     }

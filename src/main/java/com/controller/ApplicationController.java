@@ -107,7 +107,7 @@ public class ApplicationController {
     @GetMapping("/orderList")
     public String orderList( Model model,@AuthenticationPrincipal User user){
         model.addAttribute("user",user);
-        model.addAttribute("orders",orderService.findAllByUserId(3));
+        model.addAttribute("orders",orderService.findAllByUserId(user.getId()));
         return "orderList";
     }
 

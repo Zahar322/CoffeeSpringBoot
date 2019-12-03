@@ -25,7 +25,7 @@
         <div class="col-lg-8 margin">
             <ul class=" nav nav-pills nav-justified ">
 
-                <li class="active" id="main"><a th:text="#{main}"  href="main"></a></li>
+                <li class="active" id="main"><a th:text="#{main}" id="mainRef" href="main"></a></li>
                 <li><a href="makeOrder" th:text="#{makeOrder}"></a></li>
                 <li><a href="main#" id="reg" th:text="#{toRegister}" ></a></li>
                 <li><a href="orderList#" id="login" th:text="#{personalArea}" ></a></li>
@@ -93,10 +93,11 @@
                         <h4 class="text-center" th:text="#{totalPrice}"></h4>
                     </th>
 
-                    <div  th:each="coffees:${coffees}">
+                    <div id="tableItems" th:each="coffees:${coffees}">
                         <tr class="info">
                             <td ><h4 class="text-center"><input type="checkbox"  th:coffeeId="${coffees.id}"></h4> </td>
-                            <td><h4 class="text-center" th:text="${coffees.title}"></h4></td>
+                            <td name="title"><h4 class="text-center"  th:text="${coffees.title}"></h4></td>
+                            <td name="titleRu"><h4 class="text-center"  th:text="${coffees.titleRu}"></h4></td>
                             <td><h4 class="text-center "><input name="amount" disabled type="number"  th:id="${coffees.id}" value="0" ></h4></td>
 
 
@@ -157,6 +158,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script type="text/javascript" th:src="@{/js/orderScript.js}"></script>
+
 
 </body>
 </html>

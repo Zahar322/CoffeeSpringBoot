@@ -24,7 +24,7 @@
         <div class="col-lg-8 margin">
             <ul class=" nav nav-pills nav-justified ">
 
-                <li class="active" id="main"><a th:text="#{main}"  href="main"></a></li>
+                <li class="active" id="main"><a th:text="#{main}" id="mainRef"  href="main"></a></li>
                 <li><a href="makeOrder" th:text="#{makeOrder}"></a></li>
                 <li><a href="main#" id="reg" th:text="#{toRegister}" ></a></li>
                 <li><a href="#" id="login" th:text="#{personalArea}" ></a></li>
@@ -32,9 +32,9 @@
                 <li ><div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" th:text="#{language}" data-toggle="dropdown"> <span class="caret"></span></button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="orderList?language=en_US">EN</a> </li>
+                        <li><a th:href="'orderItems/'+${orderId}+'?language=en_US'">EN</a> </li>
 
-                        <li><a href="orderList?language=ru_RU">RU</a></li>
+                        <li><a th:href="'orderItems/'+${orderId}+'?language=ru_RU'">RU</a></li>
 
 
                     </ul>
@@ -72,7 +72,8 @@
                 <div th:each="orderItems:${orderItems}">
                     <tr class="info">
                         <td ><h4 class="text-center"><a href="${context}${orderItems.id}" th:text="${orderItems.coffee.id}"></a></h4> </td>
-                        <td><h4 class="text-center" th:text="${orderItems.coffee.title}"></h4></td>
+                        <td name="title"><h4 class="text-center" th:text="${orderItems.coffee.title}"></h4></td>
+                        <td name="titleRu"><h4 class="text-center" th:text="${orderItems.coffee.titleRu}"></h4></td>
                         <td><h4 class="text-center amount" th:text="${orderItems.amount}"></h4></td>
                         <td><h4 class="text-center price" th:text="${orderItems.coffee.price}"></h4></td>
                         <td><h4 class="text-center totalPrice" ></h4></td>

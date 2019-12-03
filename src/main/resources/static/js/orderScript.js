@@ -1,8 +1,18 @@
 var boxs=document.querySelectorAll('input[type="checkbox"]');
 var amounts=document.querySelectorAll('input[name="amount"]');
-
+var language="";
+var title=document.getElementsByName("title");
+var titleRu=document.getElementsByName("titleRu");
 
 window.onload=()=>{
+    var main=document.getElementById("mainRef");
+    var mainText=main.innerHTML;
+    if(mainText==="главная"){
+        language="ru";
+    }else{
+        language="eg";
+    }
+    localizate();
 
 
     boxs.forEach(item=>{
@@ -34,6 +44,19 @@ window.onload=()=>{
     })
 
 
+}
+
+function localizate() {
+
+    if(language==="ru"){
+        title.forEach(title=>{
+            title.setAttribute("class","hide");
+        })
+    }else{
+        titleRu.forEach(titleRu=>{
+            titleRu.setAttribute("class","hide");
+        })
+    }
 }
 
 
