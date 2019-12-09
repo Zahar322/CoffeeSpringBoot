@@ -2,6 +2,7 @@ package com.controller;
 
 
 
+import com.controller.entity.Coffee;
 import com.controller.entity.Order;
 import com.controller.entity.User;
 
@@ -88,12 +89,12 @@ public class ApplicationController {
         if(result.hasErrors()){
 
 
-            return "/makeOrder";
+            return "makeOrder";
         }
         order.setUserId(user.getId());
 
-        int [] prices=getPrices(coffeeIds.toArray(new Integer[coffeeIds.size()]));
-        int totalPrice=getTotalPrice(prices,amounts.toArray(new Integer[amounts.size()]));
+        Coffee [] coffees=getCoffees(coffeeIds.toArray(new Integer[coffeeIds.size()]));
+        int totalPrice=getTotalPrice(coffees,amounts.toArray(new Integer[amounts.size()]));
 
         order.setTotalPrice(totalPrice);
         order.setCreationDate(new Timestamp(new Date().getTime()));
@@ -123,21 +124,20 @@ public class ApplicationController {
 
 
 
-    private int getTotalPrice(int[] prices,Integer [] amount){
+    private int getTotalPrice(Coffee[] coffees, Integer [] amount){
         int totalPrice=0;
-        for(int i=0;i<prices.length;i++){
-            totalPrice=totalPrice+Math.abs(prices[i]*amount[i]);
+        for(int i=0;i<coffees.length;i++){
+            totalPrice=totalPrice+Math.abs(coffees[i].getPrice()*amount[i]);
         }
         return totalPrice;
     }
 
-    private int [] getPrices(Integer [] ids){
-        Map<Integer,Integer> map=coffeeService.getCoffeePrices();
-        int [] prices=new int[ids.length];
+    private Coffee [] getCoffees(Integer [] ids){
+        Map<Integer,Coffee> map=coffeeService.getCoffeePrices();
+        Coffee [] coffees=new Coffee[ids.length];
         for (int i=0;i<ids.length;i++){
-            prices[i]=map.get(ids[i]);
+            coffees[i]=map.get(ids[i]);
         }
-        return prices;
+        return coffees;
     }
-
 }

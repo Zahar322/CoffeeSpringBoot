@@ -11,5 +11,5 @@ public interface CoffeeService {
 
     List<Coffee> getCoffeeList();
 
-    Map<Integer, Integer> getCoffeePrices();
+    Map<Integer, Coffee> getCoffeePrices();
 }

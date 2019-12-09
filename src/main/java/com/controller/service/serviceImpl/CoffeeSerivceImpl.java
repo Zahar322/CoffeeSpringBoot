@@ -19,14 +19,14 @@ public class CoffeeSerivceImpl implements CoffeeService {
 
     private List<Coffee> coffeeList;
 
-    private Map<Integer,Integer> coffeePrices;
+    private Map<Integer,Coffee> coffeePrices;
 
     @PostConstruct
     private void init(){
        coffeeList=findAll();
        coffeePrices=new HashMap<>();
        for(Coffee coffee:coffeeList){
-           coffeePrices.put(coffee.getId(),coffee.getPrice());
+           coffeePrices.put(coffee.getId(),coffee);
        }
     }
 
@@ -39,7 +39,7 @@ public class CoffeeSerivceImpl implements CoffeeService {
         return coffeeList;
     }
 
-    public Map<Integer, Integer> getCoffeePrices() {
+    public Map<Integer, Coffee> getCoffeePrices() {
         return coffeePrices;
     }
 }
