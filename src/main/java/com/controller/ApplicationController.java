@@ -65,6 +65,8 @@ public class ApplicationController {
         if(result.hasErrors()){
             return "/main";
         }
+        user.setRole("USER_ROLE");
+        userService.save(user);
         return "redirect:/main";
 
     }
@@ -92,6 +94,7 @@ public class ApplicationController {
             return "makeOrder";
         }
         order.setUserId(user.getId());
+
 
         Coffee [] coffees=getCoffees(coffeeIds.toArray(new Integer[coffeeIds.size()]));
         int totalPrice=getTotalPrice(coffees,amounts.toArray(new Integer[amounts.size()]));
