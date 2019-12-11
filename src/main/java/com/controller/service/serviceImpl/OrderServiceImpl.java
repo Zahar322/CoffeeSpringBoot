@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.controller.entity.Order;
+
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -27,5 +29,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public int findLastOrderId() {
         return orderRepository.findTop1ByOrderByIdDesc().getId();
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(int id) {
+        orderRepository.deleteById(id);
     }
 }

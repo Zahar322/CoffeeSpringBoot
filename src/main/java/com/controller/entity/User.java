@@ -4,21 +4,20 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 
 @Entity
 @Table(name="us")
 public class User implements UserDetails {
 
     @Id
+    @GeneratedValue
     private int id;
 
     @NotBlank(message = "{field.notBlank}")
@@ -32,6 +31,18 @@ public class User implements UserDetails {
 
     @Column(name="role")
     private String role;
+
+    @Column(name="create_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
 
     public String getRole() {
         return role;

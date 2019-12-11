@@ -12,4 +12,6 @@ public interface CoffeeService {
     List<Coffee> getCoffeeList();
 
     Map<Integer, Coffee> getCoffeePrices();
+
+    Coffee findById(int id);
 }

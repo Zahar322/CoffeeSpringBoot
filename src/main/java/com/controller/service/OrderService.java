@@ -10,4 +10,6 @@ public interface OrderService {
     List<Order> findAllByUserId(int userId);
 
     int findLastOrderId();
+
+    void deleteById(int id);
 }

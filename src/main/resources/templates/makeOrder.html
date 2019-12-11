@@ -28,7 +28,7 @@
                 <li class="active" id="main"><a th:text="#{main}" id="mainRef" href="main"></a></li>
                 <li><a href="makeOrder" th:text="#{makeOrder}"></a></li>
                 <li><a href="main#" id="reg" th:text="#{toRegister}" ></a></li>
-                <li><a href="orderList#" id="login" th:text="#{personalArea}" ></a></li>
+                <li><a href="personalArea#" id="login" th:text="#{personalArea}" ></a></li>
                 <li><a href="logout" th:text="#{logout}" ></a></li>
                 <li ><div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" th:text="#{language}" data-toggle="dropdown"> <span class="caret"></span></button>
@@ -80,6 +80,9 @@
                     <th class="success col-lg-1">
                         <h4 class="text-center"></h4>
                     </th>
+                    <th class="success col-lg-1">
+                        <h4 class="text-center">N</h4>
+                    </th>
                     <th class="info col-lg-6">
                         <h4 class="text-center" th:text="#{titleCoffee}"></h4>
                     </th>
@@ -96,6 +99,7 @@
                     <div id="tableItems" th:each="coffees:${coffees}">
                         <tr class="info">
                             <td ><h4 class="text-center"><input type="checkbox"  th:coffeeId="${coffees.id}"></h4> </td>
+                            <td name="title"><h4 class="text-center"> <a th:href="'coffee/'+${coffees.id}" th:text="${coffees.id}"></a></h4></td>
                             <td name="title"><h4 class="text-center"  th:text="${coffees.title}"></h4></td>
                             <td name="titleRu"><h4 class="text-center"  th:text="${coffees.titleRu}"></h4></td>
                             <td><h4 class="text-center "><input name="amount" disabled type="number"  th:id="${coffees.id}" value="0" ></h4></td>

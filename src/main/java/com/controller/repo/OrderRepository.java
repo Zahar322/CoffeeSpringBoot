@@ -15,4 +15,6 @@ public interface OrderRepository  extends JpaRepository<Order,Integer> {
 
     Order findTop1ByOrderByIdDesc();
 
+    void deleteById(int id);
+
 }

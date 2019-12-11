@@ -42,4 +42,9 @@ public class CoffeeSerivceImpl implements CoffeeService {
     public Map<Integer, Coffee> getCoffeePrices() {
         return coffeePrices;
     }
+
+    @Override
+    public Coffee findById(int id) {
+        return coffeeRepository.findById(id);
+    }
 }

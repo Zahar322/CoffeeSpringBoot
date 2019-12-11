@@ -6,10 +6,7 @@ import com.controller.entity.Coffee;
 import com.controller.entity.Order;
 import com.controller.entity.User;
 
-import com.controller.service.CoffeeService;
-import com.controller.service.OrderItemService;
-import com.controller.service.OrderService;
-import com.controller.service.UserService;
+import com.controller.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -42,6 +39,9 @@ public class ApplicationController {
 
    @Autowired
    private OrderItemService orderItemService;
+
+   @Autowired
+   private CommentService commentService;
 
 
 
@@ -121,6 +121,20 @@ public class ApplicationController {
         model.addAttribute("orderId",orderId);
         model.addAttribute("orderItems",orderItemService.findAllByOrderId(orderId));
         return "orderItems";
+    }
+
+    @GetMapping("/coffee/{id}")
+    public String coffee(@PathVariable int id,Model model,@AuthenticationPrincipal User user){
+        model.addAttribute("coffee",coffeeService.findById(id));
+        model.addAttribute("user",user);
+        model.addAttribute("comments",commentService.findAllByCoffeeId(id));
+        return "coffee";
+    }
+
+    @GetMapping("/personalArea")
+    public String personalArea(Model model,@AuthenticationPrincipal User user){
+        model.addAttribute("user",user);
+        return "personalArea";
     }
 
 

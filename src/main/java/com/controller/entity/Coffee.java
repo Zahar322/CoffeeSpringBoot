@@ -19,6 +19,17 @@ public class Coffee {
     @Column(name="title_ru")
     private String titleRu;
 
+    @Column(name="about")
+    private String about;
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
     public String getTitleRu() {
         return titleRu;
     }
