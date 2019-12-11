@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap3.css}"/>
+    <link rel="stylesheet" th:href="@{/css/coffee.css}"/>
+    <title th:text="#{personalArea}"></title>
+</head>
+
+<body>
+<div class="row head ">
+    <div class="col-lg-2">
+        <img src="https://static.tildacdn.com/tild6239-6363-4632-a132-383030356534/logo110.png" class="logo " imgfield="img" alt="ПЕРСПЕКТИВА.кофе">
+    </div>
+    <div class="col-lg-8 margin">
+        <ul class=" nav nav-pills nav-justified ">
+
+            <li class="active" id="main"><a th:text="#{main}"  href="main"></a></li>
+            <li><a href="makeOrder" th:text="#{makeOrder}"></a></li>
+            <li><a href="main#" id="reg" th:text="#{toRegister}" ></a></li>
+            <li><a href="#" id="login" th:text="#{personalArea}" ></a></li>
+            <li><a href="logout" th:text="#{logout}" ></a></li>
+            <li ><div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" th:text="#{language}" data-toggle="dropdown"> <span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="orderList?language=en_US">EN</a> </li>
+
+                    <li><a href="orderList?language=ru_RU">RU</a></li>
+
+
+                </ul>
+            </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-lg-2 margintext">
+        <p class="text-center" th:text="#{welcome}+' '+${user.username}" >  <p id="user" style="display: none" th:text="${user.username}" ></p></p>
+    </div>
+
+</div><!-- /.row -->
+<div class="row content">
+    <div class="col-lg-2">
+
+    </div>
+    <div class="col-lg-8"  >
+
+
+        <table class="table table-striped table-bordered table-hover ">
+
+            <th class="success col-lg-1">
+                <h4 class="text-center" >Id</h4>
+            </th>
+            <th class="info col-lg-6">
+                <h4 class="text-center" > Title</h4>
+            </th>
+            <th class="info col-lg-6">
+                <h4 class="text-center" >Price</h4>
+            </th>
+
+
+
+            <div th:each="coffee:${coffees}" >
+                <tr class="info">
+                    <td ><h4 class="text-center" th:text="${coffee.id}"></h4> </td>
+                    <td><h4 class="text-center" th:text="${coffee.title}"></h4></td>
+                    <td><h4 class="text-center" th:text="${coffee.price}"></h4></td>
+
+                </tr>
+            </div>
+
+        </table>
+
+
+
+
+
+    </div>
+</div>
+
+<div class="row foot">
+    <div class="col-lg-2" style="padding-top:20px">
+        <p class="text-white">
+        <p th:text="#{about}"> <br>
+        <p th:text="#{adress}">
+        </p>
+    </div>
+
+    <div class="col-lg-2 col-lg-offset-3" style="padding-top:20px">
+        <p>
+            zaharzim@yandex.by <br>
+            +375295107806
+        </p>
+    </div>
+
+    <div class="col-lg-2 col-lg-offset-3" style="padding-top:20px">
+        <p>
+        <p th:text="#{timeWork}"> <br>
+        <p th:text="#{workHours}">
+        </p>
+    </div>
+</div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+
+</body>
+</html>
