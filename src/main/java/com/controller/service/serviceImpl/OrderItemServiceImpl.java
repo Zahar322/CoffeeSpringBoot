@@ -6,6 +6,7 @@ import com.controller.service.OrderItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -25,6 +26,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
+    @Transactional
     public void saveAll(List<Integer> amounts, List<Integer> coffeeIds, int orderId) {
         for(int i=0;i<amounts.size();i++){
             OrderItem item=new OrderItem();

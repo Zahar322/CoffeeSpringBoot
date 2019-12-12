@@ -51,7 +51,7 @@
 
     </div><!-- /.row -->
 
-    <div  class="content">
+    <div  class="content-not">
 
         <div class="product-item" >
             <img src="https://coffeeguycafe.com/wp-content/uploads/2018/09/coffee-guy-cup.jpg">
@@ -77,6 +77,8 @@
                 <button id="but" class="btn btn-primary" >Send</button>
             </div>
         </div>
+
+
         <div class="container row col-lg-offset-1">
             <div class="comments">
                 <h3 class="title-comments text-primary" th:text="'Комментарии ('+${comments.size()}+')'"></h3>
@@ -136,10 +138,12 @@
             <div style="display: none">
                 <input type="number" id="coffee" th:value="${coffee.id}"></input>
                 <input type="number" id="userId" th:value="${user.id}"></input>
+                <input type="number" id="count" th:value="${comments.size()}">
             </div>
 
 
 </div>
+
     </div>
 </div>
 

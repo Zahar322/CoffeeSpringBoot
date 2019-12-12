@@ -1,12 +1,14 @@
 package com.controller.service.serviceImpl;
 
 import com.controller.entity.Comment;
+import com.controller.entity.User;
 import com.controller.repo.CommentRepository;
 import com.controller.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import javax.transaction.Transactional;
+
 import java.util.List;
 
 @Service
@@ -31,12 +33,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> updateList(List<Comment> comments, String username) {
-        for(int i=0;i<comments.size();i++){
-            Comment comment=comments.get(i);
-            comment.setUsername(username);
+    @Transactional
+    public void updateUserComments(User user) {
+        for(Comment comment:commentRepository.findAllByUserId(user.getId())){
+            comment.setUsername(user.getUsername());
             commentRepository.save(comment);
         }
-        return null;
     }
 }

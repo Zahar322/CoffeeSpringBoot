@@ -137,6 +137,15 @@ public class ApplicationController {
         return "personalArea";
     }
 
+    @PostMapping("/update")
+    public String update(@ModelAttribute User user,@AuthenticationPrincipal User oldUser){
+        user.prepareUserForUpdate(oldUser);
+
+        userService.update(user);
+        commentService.updateUserComments(user);
+        return "redirect:/personalArea";
+    }
+
 
 
 

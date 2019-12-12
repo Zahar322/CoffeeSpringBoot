@@ -1,6 +1,7 @@
 package com.controller.service;
 
 import com.controller.entity.Comment;
+import com.controller.entity.User;
 
 import java.util.List;
 
@@ -12,5 +13,5 @@ public interface CommentService {
 
     Comment save(Comment comment);
 
-    List<Comment> updateList(List<Comment> comments,String username);
+    void updateUserComments(User user);
 }

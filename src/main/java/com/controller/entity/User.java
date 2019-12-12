@@ -36,6 +36,12 @@ public class User implements UserDetails {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
 
+    public void prepareUserForUpdate(User user){
+        role=user.getRole();
+        id=user.getId();
+        createDate=user.getCreateDate();
+    }
+
     public Date getCreateDate() {
         return createDate;
     }

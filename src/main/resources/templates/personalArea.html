@@ -48,7 +48,7 @@
     <div class="col-lg-2">
 
     </div>
-    <div class="col-lg-8"  >
+    <form class="col-lg-8" action="update" method="post">
 
 
         <table class="table table-striped table-bordered table-hover ">
@@ -73,10 +73,11 @@
             <div >
                 <tr class="info">
                     <td ><h4 class="text-center" th:text="${user.id}"></h4> </td>
-                    <td><h4 class="text-center" th:text="${user.username}"></h4></td>
-                    <td><h4 class="text-center" th:text="${user.password}"></h4></td>
+                    <td><h4 class="text-center" ><input type="text" name="username" th:value="${user.username}"></h4></td>
+                    <td><h4 class="text-center" ><input type="text" name="password" th:value="${user.password}"></h4></td>
                     <td><h4 class="text-center" th:text="${user.createDate}"></h4></td>
                     <td><h4 class="text-center " ><a href="orderList" >watch my orders</a></h4></td>
+                    <td><h4 class="text-center " ><button type="submit">update</button> </h4></td>
 
                 </tr>
             </div>
@@ -87,7 +88,7 @@
 
 
 
-    </div>
+    </form>
 </div>
 
 <div class="row foot">
