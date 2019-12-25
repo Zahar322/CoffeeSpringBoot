@@ -146,7 +146,7 @@ public class ApplicationController {
         return "redirect:/personalArea";
     }
 
-
+//524 лучшая комната в общаге
 
 
 
