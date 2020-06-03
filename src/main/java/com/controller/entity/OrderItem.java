@@ -1,10 +1,11 @@
 package com.controller.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="order_item")
-public class OrderItem {
+public class OrderItem implements Serializable {
 
     @Id
     @GeneratedValue()

@@ -46,4 +46,16 @@ public class UserServiceImpl implements UserService {
     public User update(User user) {
         return userRepository.save(user);
     }
+
+    @Override
+    public User findById(int id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public void printNonsensePhrase() {
+        System.out.println("Users");
+        System.out.println("get down");
+        System.out.println("Go to orders");
+    }
 }

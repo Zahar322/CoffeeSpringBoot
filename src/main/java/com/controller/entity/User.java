@@ -8,20 +8,23 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name="us")
-public class User implements UserDetails {
+public class User  implements UserDetails, AbstractImage{
+
 
     @Id
     @GeneratedValue
     private int id;
 
     @NotBlank(message = "{field.notBlank}")
-    @Size(min=3,max=8,message = "{field.size}")
+//    @Size(min=3,max=8,message = "{field.size}")
     @Column(name="name")
     private String username;
 
@@ -35,6 +38,17 @@ public class User implements UserDetails {
     @Column(name="create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
+
+    @Column(name = "image")
+    private byte[] image;
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 
     public void prepareUserForUpdate(User user){
         role=user.getRole();
@@ -105,5 +119,37 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(role, user.role) &&
+                Objects.equals(createDate, user.createDate) &&
+                Arrays.equals(image, user.image);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(id, username, password, role, createDate);
+        result = 31 * result + Arrays.hashCode(image);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", createDate=" + createDate +
+                ", image=" + Arrays.toString(image) +
+                '}';
     }
 }

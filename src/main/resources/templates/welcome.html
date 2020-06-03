@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+
+<table>
+
+
+    <th>Id</th>
+    <th>Name</th>
+    <th>Password</th>
+
+   <div class="test" th:each="user:${users}">
+       <tr>
+           <td th:text="${user.id}"></td>
+           <td th:text="${user.username}"></td>
+           <td th:text="${user.password}"></td>
+       </tr>
+   </div>
+
+</table>
+
+</body>
+</html>

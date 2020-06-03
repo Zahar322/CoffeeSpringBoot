@@ -14,4 +14,8 @@ public interface CoffeeService {
     Map<Integer, Coffee> getCoffeePrices();
 
     Coffee findById(int id);
+
+    Coffee save(Coffee coffee);
+
+    void update(Coffee coffee);
 }

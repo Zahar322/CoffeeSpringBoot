@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.controller.entity.Coffee;
 import com.controller.entity.User;
 import com.controller.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin")
@@ -54,6 +57,7 @@ public class AdminController {
     @GetMapping("/showOrders/{userId}")
     public String showOrders(Model model,@PathVariable int userId , @AuthenticationPrincipal User user){
         model.addAttribute("user",user);
+        model.addAttribute("userId",userId);
         model.addAttribute("orders",orderService.findAllByUserId(userId));
         return "showOrders";
     }
@@ -67,6 +71,43 @@ public class AdminController {
     public String deleteOrder(@PathVariable int orderId){
         orderService.deleteById(orderId);
         return "redirect:/admin/showUsers";
+    }
+
+    @GetMapping("/addCoffee")
+    public String addCoffee( Model model,@AuthenticationPrincipal User user){
+        model.addAttribute("user",user);
+        model.addAttribute("coffeeValid",new Coffee());
+        return "addCoffee";
+    }
+//    @PostMapping("/addCoffee")
+//    public String addCoffee(@ModelAttribute ("coffeeValid") @Valid Coffee coffee, BindingResult result,@RequestParam(name = "image") CommonsMultipartFile image){
+//        if(result.hasErrors()){
+//            return "redirect:/admin/addCoffee";
+//        }
+//        coffee.setImage(image.getBytes());
+//        coffeeService.save(coffee);
+//        return "redirect:/makeOrder";
+//    }
+
+    @PostMapping("/addCoffee")
+    public String addCoffee(@ModelAttribute  Coffee coffee,@RequestParam(name = "myimage") CommonsMultipartFile image){
+        coffee.setImage(image.getBytes());
+        coffeeService.save(coffee);
+        return "redirect:/makeOrder";
+    }
+
+    @GetMapping("/updateCoffee/{id}")
+    public String update(@PathVariable int id,Model model,@AuthenticationPrincipal User user){
+        model.addAttribute("user",user);
+        model.addAttribute("coffee",coffeeService.findById(id));
+        return "updateCoffee";
+    }
+
+    @PostMapping("/updateCoffee")
+    public String update(@ModelAttribute Coffee coffee,@RequestParam(name = "myimage") CommonsMultipartFile image ){
+        coffee.setImage(image.getBytes());
+        coffeeService.update(coffee);
+        return "redirect:/makeOrder";
     }
 
 

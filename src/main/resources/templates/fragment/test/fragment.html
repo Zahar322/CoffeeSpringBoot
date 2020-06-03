@@ -1,0 +1,24 @@
+<th:block xmlns:th="http://www.thymeleaf.org"
+          th:fragment="test">
+    <div>
+        <ul>
+            <li></li>
+            <li>Test2</li>
+            <li>Test3</li>
+        </ul>
+    </div>
+</th:block>
+
+<th:block xmlns:th="http://www.thymeleaf.org"
+          th:fragment="image(entity)">
+    <div>
+        <img th:width="300" alt="image" th:height="300" th:src="@{'/user/'+${entity.id}}">
+    </div>
+</th:block>
+
+<th:block xmlns:th="http://www.thymeleaf.org"
+          th:fragment="test1">
+    <div>
+        lox
+    </div>
+</th:block>

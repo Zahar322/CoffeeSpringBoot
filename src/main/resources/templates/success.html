@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form method="post" th:action="@{${flowExecutionUrl}}">
+    <input name="username" type="text"><br>
+    <input name="password" type="text"><br>
+</form>
+
+<table>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Password</th>
+
+    <div class="test" >
+        <tr>
+            <td th:text="${customer.id}"></td>
+            <td th:text="${customer.username}"></td>
+            <td th:text="${customer
+            .password}"></td>
+        </tr>
+    </div>
+</table>
+
+<table>
+    <th>Id</th>
+    <th>Title</th>
+    <th>Price</th>
+
+    <div class="test" th:each="coffee:${coffees}" >
+        <tr>
+            <td th:text="${coffee.id}"></td>
+            <td th:text="${coffee.title}"></td>
+            <td th:text="${coffee.price}"></td>
+        </tr>
+    </div>
+</table>
+
+</body>
+</html>

@@ -40,4 +40,9 @@ public class CommentServiceImpl implements CommentService {
             commentRepository.save(comment);
         }
     }
+
+    @Override
+    public List<Comment> findAllByCoffeeIdOrderByIdDesc(int coffeeId) {
+        return commentRepository.findAllByCoffeeIdOrderByIdDesc(coffeeId);
+    }
 }

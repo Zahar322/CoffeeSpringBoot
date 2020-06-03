@@ -2,11 +2,12 @@ package com.controller.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name="orders")
-public class Order {
+public class Order implements Serializable {
 
     @Id
     private int id;

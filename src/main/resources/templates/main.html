@@ -16,9 +16,6 @@
 
 <div class="container-fluid">
 
-
-
-
     <div class="row head ">
         <div class="col-lg-2">
             <img src="https://static.tildacdn.com/tild6239-6363-4632-a132-383030356534/logo110.png" class="logo " imgfield="img" alt="ПЕРСПЕКТИВА.кофе">
@@ -31,6 +28,8 @@
                 <li><a href="#" id="reg" th:text="#{toRegister}" ></a></li>
                 <li><a href="#" id="login" th:text="#{login}" ></a></li>
                 <li><a href="logout" th:text="#{logout}" ></a></li>
+                <li><a href="https://oauth.vk.com/authorize?client_id=7479355&redirect_uri=http://localhost:8081/main&display=popup&scope=friends" >Vk reg</a></li>
+                <li><a th:href="${flowExecutionUrl+'&_eventId=success'}">Cancel</a></li>
                 <li ><div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" th:text="#{language}" data-toggle="dropdown"> <span class="caret"></span></button>
                     <ul class="dropdown-menu" role="menu">
@@ -76,6 +75,11 @@
                         <button id="but" type="submit" class="form-control btn btn-primary " th:placeholder="#{labelLogin}"><p th:text="#{labelLogin}"></button>
 
                     </div>
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-addon"><p th:text="#{labelLogin}"></span>
+                                        <button  type="submit" class="form-control btn btn-primary " th:placeholder="#{labelLogin}"><a href="https://oauth.vk.com/authorize?client_id=7479355&redirect_uri=http://localhost:8081/main&display=popup&scope=friends" >Vk reg</a></button>
+
+                                    </div>
 
 
 

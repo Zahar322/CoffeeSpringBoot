@@ -5,19 +5,29 @@ var userId=document.getElementById("userId").value;
 var commentList=document.getElementById("commentList");
 var textComment=document.getElementById("comment");
 var username=document.getElementById("user").innerHTML;
+var count=document.getElementById("count").value;
+var el=[];
 
 window.onload=function () {
 
+    textComment.value=localStorage.getItem("comment");
+
     document.getElementById("but").onclick=fullfil;
+
+   // setInterval(compare,5000);
 }
 
 
 
 function fullfil(){
-    var uri=`http://localhost:8080/rest/saveComment`;
+    // http://192.168.0.102/
+    // var uri=`http://localhost:8080/rest/saveComment`;
+    // var uri=`http://192.168.0.102:8080/rest/saveComment`;
+    var uri=`${window.location.protocol}//${window.location.host}/rest/saveComment`;
+
     var request=new XMLHttpRequest();
     setComment();
-
+    textComment.value="";
     request.open("POST",uri);
     request.onload=function(){
         if(request.status==200){
@@ -27,13 +37,40 @@ function fullfil(){
     request.setRequestHeader("Content-Type","application/json");
 
     request.send(JSON.stringify(comment));
+
+}
+
+function compare() {
+    getJson();
+    if(el.length>count){
+        count=el.length;
+        localStorage.setItem("comment",textComment.value);
+        location.reload();
+
+
+    }
+}
+
+function getJson() {
+    var uri=`${window.location.protocol}//${window.location.host}/rest/comment/${id}`;
+    var request=new XMLHttpRequest();
+    request.open("GET",uri);
+    request.onload=function(){
+        if(request.status==200){
+          el= JSON.parse(request.responseText);
+
+
+        }
+    };
+    request.send(null);
+
 }
 
 
 function setComment() {
 
     comment=new Comment(id,userId,textComment.value,username);
-    commentList.innerHTML=`${commentList.innerHTML}
+    commentList.innerHTML=`
                     <li class="media">
                         <div class="media-left">
                             <a href="#">
@@ -55,7 +92,7 @@ function setComment() {
                                 </div>
                             </div>
                         </div>
-                    </li>`
+                    </li>${commentList.innerHTML}`
 
 }
 

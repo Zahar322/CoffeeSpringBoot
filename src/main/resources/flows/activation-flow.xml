@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <var name="coffee" class="com.controller.entity.Coffee"/>
+    <var name="customer" class="com.controller.entity.User"/>
+
+    <view-state id="activation" model="customer">
+        <on-entry>
+            <set name="flowScope.users" value="userServiceImpl.findAll()"/>
+            <set name="flowScope.userReg"  value="userServiceImpl.findById(1)"/>
+        </on-entry>
+        <transition on="custom" to="custom">
+<!--            <set name="flowScope.cof" value="coffee"></set>-->
+        </transition>
+        <transition on="activate" to="success">
+<!--            <set name="flowScope.user" value="users.get(0)"></set>-->
+<!--            <set name="flowScope.user" value="userServiceImpl.findByUsername(customer.username)"></set>-->
+<!--            <evaluate expression="coffeeSerivceImpl.findAll()"></evaluate>-->
+<!--            <evaluate expression="customAction.action(flowRequestContext)"></evaluate>-->
+<!--            <evaluate expression="customAction.success(flowRequestContext)"></evaluate>-->
+<!--            <evaluate expression="userServiceImpl.printNonsensePhrase()"></evaluate>-->
+        </transition>
+        <transition on="cancel" to="failure"/>
+        <transition on="order" to="orderList">
+            <evaluate expression="customAction.success(flowRequestContext)"></evaluate>
+        </transition>
+    </view-state>
+
+    <decision-state id="custom">
+        <if test="customer.username.length()>4" then="success" else="failure"></if>
+    </decision-state>
+
+    <view-state id="success">
+        <on-entry>
+            <set name="flowScope.user" value="userServiceImpl.findByUsername(customer.username)"></set>
+            <evaluate expression="coffeeSerivceImpl.findAll()"></evaluate>
+            <evaluate expression="userServiceImpl.printNonsensePhrase()"/>
+        </on-entry>
+    </view-state>
+    <view-state id="failure" />
+    <view-state id="main"/>
+
+    <action-state id="orderList">
+        <on-entry>
+            <set name="flowScope.user" value="userServiceImpl.findById(3)"></set>
+            <set name="flowScope.orders" value="orderServiceImpl.findAllByUserId(1)"></set>
+        </on-entry>
+        <transition on="yes" to="success"></transition>
+    </action-state>
+
+</flow>

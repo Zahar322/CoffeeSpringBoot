@@ -26,17 +26,17 @@
         <div class="col-lg-8 margin">
             <ul class=" nav nav-pills nav-justified ">
 
-                <li class="active" id="main"><a th:text="#{main}"  href=""></a></li>
-                <li><a href="makeOrder" th:text="#{makeOrder}"></a></li>
-                <li><a href="#" id="reg" th:text="#{toRegister}" ></a></li>
-                <li><a href="#" id="login" th:text="#{login}" ></a></li>
-                <li><a href="logout" th:text="#{logout}" ></a></li>
+                <li class="active" id="main"><a th:text="#{main}"  th:href="@{/main}"></a></li>
+                <li><a th:href="@{/makeOrder}" th:text="#{makeOrder}"></a></li>
+                <li><a th:href="@{/main#}" id="reg" th:text="#{toRegister}" ></a></li>
+                <li><a th:href="@{/personalArea}" id="login" th:text="#{login}" ></a></li>
+                <li><a th:href="@{/logout}" th:text="#{logout}" ></a></li>
                 <li ><div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" th:text="#{language}" data-toggle="dropdown"> <span class="caret"></span></button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="main?language=en_US">EN</a> </li>
+                        <li><a th:href="'/coffee/'+${coffee.id}+'?language=en_US'">EN</a> </li>
 
-                        <li><a href="main?language=ru_RU">RU</a></li>
+                        <li><a th:href="'/coffee/'+${coffee.id}+'?language=ru_RU'">RU</a></li>
 
 
                     </ul>
@@ -54,7 +54,7 @@
     <div  class="content-not">
 
         <div class="product-item" >
-            <img src="https://coffeeguycafe.com/wp-content/uploads/2018/09/coffee-guy-cup.jpg">
+            <img th:width="200" alt="image" th:height="200" th:src="@{'/image/'+${coffee.id}}">
             <div class="product-list">
                 <h3 th:text="${coffee.title}"></h3>
                 <span class="price" th:text="'$'+${coffee.price}"></span>

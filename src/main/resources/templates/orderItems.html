@@ -24,17 +24,17 @@
         <div class="col-lg-8 margin">
             <ul class=" nav nav-pills nav-justified ">
 
-                <li class="active" id="main"><a th:text="#{main}" id="mainRef"  href="main"></a></li>
-                <li><a href="makeOrder" th:text="#{makeOrder}"></a></li>
-                <li><a href="main#" id="reg" th:text="#{toRegister}" ></a></li>
-                <li><a href="personalArea" id="login" th:text="#{personalArea}" ></a></li>
-                <li><a href="logout" th:text="#{logout}" ></a></li>
+                <li class="active" id="main"><a th:text="#{main}"  th:href="@{/main}"></a></li>
+                <li><a th:href="@{/makeOrder}" th:text="#{makeOrder}"></a></li>
+                <li><a th:href="@{/main#}" id="reg" th:text="#{toRegister}" ></a></li>
+                <li><a th:href="@{/personalArea}" id="login" th:text="#{login}" ></a></li>
+                <li><a th:href="@{/logout}" th:text="#{logout}" ></a></li>
                 <li ><div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" th:text="#{language}" data-toggle="dropdown"> <span class="caret"></span></button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a th:href="'orderItems/'+${orderId}+'?language=en_US'">EN</a> </li>
+                        <li><a th:href="'/orderItems/'+${orderId}+'?language=en_US'">EN</a> </li>
 
-                        <li><a th:href="'orderItems/'+${orderId}+'?language=ru_RU'">RU</a></li>
+                        <li><a th:href="'/orderItems/'+${orderId}+'?language=ru_RU'">RU</a></li>
 
 
                     </ul>
@@ -76,11 +76,13 @@
                         <td name="titleRu"><h4 class="text-center" th:text="${orderItems.coffee.titleRu}"></h4></td>
                         <td><h4 class="text-center amount" th:text="${orderItems.amount}"></h4></td>
                         <td><h4 class="text-center price" th:text="${orderItems.coffee.price}"></h4></td>
-                        <td><h4 class="text-center totalPrice" ></h4></td>
+
                     </tr>
                 </div>
 
             </table>
+            <h4 class="text-center"><a th:href="${'/report/'+orderId+'/?type=xls'}" th:text="#{download}"></a></h4>
+            <h4 class="text-center"><a th:href="${'/report/'+orderId+'/?type=pdf'}" th:text="#{download}"></a></h4>
 
 
             <div class="offsetdown">

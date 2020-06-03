@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h2>Click to activate account</h2>
+
+<!--<form method="post" th:action="@{${flowExecutionUrl}}">-->
+<!--    <input type="submit" name="_eventId_activate" value="activate" />-->
+<!--    <input type="submit" name="_eventId_cancel" value="cancel" />-->
+<!--    <input type="submit" name="_eventId_main" value="orderList" />-->
+<!--    <input type="submit" name="_eventId_order" value="orderList" />-->
+<!--    <input type="number" name="_eventId_userId">-->
+<!--</form>-->
+
+<form method="post" th:action="@{${flowExecutionUrl}}">
+    <input type="text" name="username"><br>
+    <input type="text" name="password"><br>
+    <input type="submit" name="_eventId_custom">
+</form>
+
+<table>
+
+
+    <th>Id</th>
+    <th>Name</th>
+    <th>Password</th>
+
+    <div class="test" th:each="user:${users}">
+        <tr>
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.password}"></td>
+        </tr>
+    </div>
+
+</table>
+
+</body>
+</html>

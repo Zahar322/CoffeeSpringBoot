@@ -81,6 +81,19 @@
 
                 </tr>
             </div>
+            <div th:each="user:${users}" >
+                <tr class="info">
+                    <td ><h4 class="text-center" th:text="${user.id}"></h4> </td>
+                    <td><h4 class="text-center" th:text="${user.username}"></h4></td>
+                    <td><h4 class="text-center" th:text="${user.password}"></h4></td>
+                    <td><h4 class="text-center" th:text="${user.createDate}"></h4></td>
+                    <td><h4 class="text-center " ><a th:href="${'admin/showOrders/'+user.id}" >watch my orders</a></h4></td>
+                    <td><h4 class="text-center " ><a th:href="${'admin/showComments/'+user.id}" >watch my comment</a></h4></td>
+                    <td><h4 class="text-center " ><a th:href="${'admin/deleteUser/'+user.id}" >delete</a></h4></td>
+
+                </tr>
+            </div>
+
 
         </table>
 

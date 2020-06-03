@@ -13,5 +13,7 @@ public interface CommentService {
 
     Comment save(Comment comment);
 
+    List<Comment> findAllByCoffeeIdOrderByIdDesc(int coffeeId);
+
     void updateUserComments(User user);
 }

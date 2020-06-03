@@ -23,11 +23,22 @@ public class CoffeeSerivceImpl implements CoffeeService {
 
     @PostConstruct
     private void init(){
-       coffeeList=findAll();
-       coffeePrices=new HashMap<>();
-       for(Coffee coffee:coffeeList){
-           coffeePrices.put(coffee.getId(),coffee);
-       }
+//       coffeeList=findAll();
+//       coffeePrices=new HashMap<>();
+//       for(Coffee coffee:coffeeList){
+//           coffeePrices.put(coffee.getId(),coffee);
+//       }
+
+    }
+
+    @Override
+    public Coffee save(Coffee coffee) {
+        return coffeeRepository.save(coffee);
+    }
+
+    @Override
+    public void update(Coffee coffee) {
+        coffeeRepository.save(coffee);
     }
 
     @Override

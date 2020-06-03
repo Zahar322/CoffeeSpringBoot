@@ -11,4 +11,6 @@ public interface CoffeeRepository extends JpaRepository<Coffee,Integer> {
     List<Coffee> findAll();
 
     Coffee findById(int id);
+
+    Coffee save(Coffee coffee);
 }
