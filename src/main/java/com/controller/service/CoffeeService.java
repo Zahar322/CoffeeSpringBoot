@@ -9,9 +9,10 @@ public interface CoffeeService {
 
     List<Coffee> findAll();
 
-    List<Coffee> getCoffeeList();
-
-    Map<Integer, Coffee> getCoffeePrices();
-
     Coffee findById(int id);
+
+    Coffee save(Coffee coffee);
+
+    int getTotalPrice(List<Integer> coffeeIds, List<Integer> counts);
+
 }

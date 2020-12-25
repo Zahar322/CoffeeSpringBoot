@@ -22,6 +22,10 @@ public class Coffee {
     @Column(name="about")
     private String about;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "media_id")
+    private Media media;
+
     public String getAbout() {
         return about;
     }
@@ -60,5 +64,13 @@ public class Coffee {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public Media getMedia() {
+        return media;
+    }
+
+    public void setMedia(Media media) {
+        this.media = media;
     }
 }

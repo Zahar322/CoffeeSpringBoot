@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.controller.entity.Coffee;
 import com.controller.entity.User;
 import com.controller.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,10 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/admin")
@@ -20,20 +22,19 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
-
     @Autowired
     private CoffeeService coffeeService;
-
     @Autowired
     private OrderService orderService;
-
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private MediaService mediaService;
 
     @GetMapping("/showCoffees")
     public String showCoffee(Model model, @AuthenticationPrincipal User user){
         model.addAttribute("user",user);
-        model.addAttribute("coffees",coffeeService.getCoffeeList());
+        model.addAttribute("coffees", coffeeService.findAll());
         return "showCoffees";
     }
 
@@ -69,7 +70,19 @@ public class AdminController {
         return "redirect:/admin/showUsers";
     }
 
+    @GetMapping("/addCoffee")
+    public String addCoffee( Model model,@AuthenticationPrincipal User user){
+        model.addAttribute("user",user);
+        model.addAttribute("coffeeValid",new Coffee());
+        return "addCoffee";
+    }
 
-
+    @PostMapping("/addCoffee")
+    public String addCoffee(@ModelAttribute Coffee coffee, @RequestParam(name = "myimage") MultipartFile image) throws IOException {
+        coffee.setMedia(mediaService.createMedia(image));
+        mediaService.uploadFile(image);
+        coffeeService.save(coffee);
+        return "redirect:/makeOrder";
+    }
 
 }

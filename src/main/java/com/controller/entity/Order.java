@@ -9,6 +9,7 @@ import java.util.Date;
 public class Order {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column(name="total_price")

@@ -1,7 +1,9 @@
 package com.controller;
 
+import com.controller.entity.Coffee;
 import com.controller.entity.Comment;
 import com.controller.entity.User;
+import com.controller.service.CoffeeService;
 import com.controller.service.CommentService;
 import com.controller.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +19,10 @@ public class ApplicationRestController {
 
     @Autowired
     private CommentService commentService;
-
     @Autowired
     private UserService userService;
+    @Autowired
+    private CoffeeService coffeeService;
 
     @GetMapping("/comment/{coffeeId}")
     public List<Comment> commentList(@PathVariable int coffeeId){
@@ -34,7 +37,14 @@ public class ApplicationRestController {
 
     @GetMapping("/users")
     public List<User> list(){
-        return userService.findAll();
+        List<User> users = userService.findAll();
+        users.removeIf(user -> user.getMedia() == null);
+        return users;
+    }
+
+    @GetMapping("/coffees")
+    public List<Coffee> coffees() {
+        return coffeeService.findAll();
     }
 
 }

@@ -1,51 +1,43 @@
 package com.controller;
 
-
-
-import com.controller.entity.Coffee;
 import com.controller.entity.Order;
 import com.controller.entity.User;
 
 import com.controller.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class ApplicationController {
 
-
-
-
-
    @Autowired
    private UserService userService;
-
    @Autowired
    private CoffeeService coffeeService;
-
    @Autowired
    private OrderService orderService;
-
    @Autowired
    private OrderItemService orderItemService;
-
    @Autowired
    private CommentService commentService;
-
-
-
-
+   @Autowired
+   private MediaService mediaService;
 
     @GetMapping("/welcome")
     public String welcome(Model model){
@@ -60,13 +52,20 @@ public class ApplicationController {
         return "main";
     }
 
+//    @PostMapping("/reg")
+//    public String main(@ModelAttribute("userReg") @Valid User user, BindingResult result){
+//        if(result.hasErrors()){
+//            return "/main";
+//        }
+//        user.setRole("USER_ROLE");
+//        userService.save(user);
+//        return "redirect:/main";
+//
+//    }
+
     @PostMapping("/reg")
-    public String main(@ModelAttribute("userReg") @Valid User user, BindingResult result){
-        if(result.hasErrors()){
-            return "/main";
-        }
-        user.setRole("USER_ROLE");
-        userService.save(user);
+    public String main(@ModelAttribute("userReg")  User user, @RequestParam(name = "myimage") MultipartFile image, @RequestParam("desc") String desc) throws IOException {
+        userService.save(user, image, desc);
         return "redirect:/main";
 
     }
@@ -75,7 +74,7 @@ public class ApplicationController {
     public String makeOrder(Model model, @AuthenticationPrincipal User user){
 
         model.addAttribute("user",user);
-        model.addAttribute("coffees",coffeeService.getCoffeeList());
+        model.addAttribute("coffees", coffeeService.findAll());
         model.addAttribute("order",new Order());
         return "makeOrder";
     }
@@ -94,11 +93,7 @@ public class ApplicationController {
             return "makeOrder";
         }
         order.setUserId(user.getId());
-
-
-        Coffee [] coffees=getCoffees(coffeeIds.toArray(new Integer[coffeeIds.size()]));
-        int totalPrice=getTotalPrice(coffees,amounts.toArray(new Integer[amounts.size()]));
-
+        int totalPrice = coffeeService.getTotalPrice(coffeeIds, amounts);
         order.setTotalPrice(totalPrice);
         order.setCreationDate(new Timestamp(new Date().getTime()));
         orderService.save(order);
@@ -146,24 +141,11 @@ public class ApplicationController {
         return "redirect:/personalArea";
     }
 
-
-
-
-
-    private int getTotalPrice(Coffee[] coffees, Integer [] amount){
-        int totalPrice=0;
-        for(int i=0;i<coffees.length;i++){
-            totalPrice=totalPrice+Math.abs(coffees[i].getPrice()*amount[i]);
-        }
-        return totalPrice;
-    }
-
-    private Coffee [] getCoffees(Integer [] ids){
-        Map<Integer,Coffee> map=coffeeService.getCoffeePrices();
-        Coffee [] coffees=new Coffee[ids.length];
-        for (int i=0;i<ids.length;i++){
-            coffees[i]=map.get(ids[i]);
-        }
-        return coffees;
+    @GetMapping("/image/{path}/{type}")
+    public ResponseEntity<Resource> getFile(@PathVariable String path, @PathVariable String type) throws IOException {
+        byte[] file = mediaService.getFile(path);
+        return ResponseEntity.ok()
+                             .contentType(MediaType.parseMediaType(type.replaceAll("9", "/")))
+                             .body(new ByteArrayResource(file));
     }
 }

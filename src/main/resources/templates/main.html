@@ -30,6 +30,8 @@
                 <li><a href="makeOrder" th:text="#{makeOrder}"></a></li>
                 <li><a href="#" id="reg" th:text="#{toRegister}" ></a></li>
                 <li><a href="#" id="login" th:text="#{login}" ></a></li>
+                <li><a href="/oauth2/authorization/github" id="/oauth2/authorization/github" th:text="github" ></a></li>
+                <li><a href="/oauth2/authorization/vk"  th:text="vk" ></a></li>
                 <li><a href="logout" th:text="#{logout}" ></a></li>
                 <li ><div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" th:text="#{language}" data-toggle="dropdown"> <span class="caret"></span></button>
@@ -57,7 +59,7 @@
         <div class="col-lg-8"  >
             <div id="formContainer">
 
-                                <form action="main" id="form" class="form-group form col-lg-4 col-lg-offset-4" method="post" th:object="${userReg}"  >
+                 <form action="main" id="form"  class="form-group form col-lg-4 col-lg-offset-4" method="post" th:object="${userReg}"  >
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon"><p th:text="#{labelName}"></span>
                         <input th:field="*{username}" type="text" id="name" th:placeholder="#{labelName}"  class="form-control " /><br>
@@ -70,6 +72,16 @@
                         <input  th:field="*{password}" name="password" id="password" class="form-control pass "  th:placeholder="#{labelPass}" />
                         <p th:if="${#fields.hasErrors('password')}" style="color:red" th:errors="*{password}">Name Error</p>
                     </div><br>
+
+<!--                     <div class="input-group input-group-lg">-->
+<!--                         <span class="input-group-addon"><p th:text="#{labelPass}"></span>-->
+<!--                         <input type="file" class="form-control pass" name="myimage" size=50 placeholder="image">-->
+<!--                     </div><br>-->
+
+<!--                     <div class="input-group input-group-lg">-->
+<!--                         <span class="input-group-addon"><p th:text="#{labelPass}"></span>-->
+<!--                         <input type="text" class="form-control pass" name="desc" size=50 placeholder="desc">-->
+<!--                     </div><br>-->
 
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon"><p th:text="#{labelLogin}"></span>

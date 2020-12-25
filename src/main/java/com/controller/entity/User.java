@@ -13,11 +13,11 @@ import java.util.Collection;
 import java.util.Date;
 
 @Entity
-@Table(name="us")
+@Table(name="users")
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @NotBlank(message = "{field.notBlank}")
@@ -35,6 +35,14 @@ public class User implements UserDetails {
     @Column(name="create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "media_id")
+    private Media media;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "description_id")
+    private Description description;
 
     public void prepareUserForUpdate(User user){
         role=user.getRole();
@@ -105,5 +113,21 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Media getMedia() {
+        return media;
+    }
+
+    public void setMedia(Media media) {
+        this.media = media;
+    }
+
+    public Description getDescription() {
+        return description;
+    }
+
+    public void setDescription(Description description) {
+        this.description = description;
     }
 }

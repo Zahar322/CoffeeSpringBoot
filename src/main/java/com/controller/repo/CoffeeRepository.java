@@ -7,8 +7,4 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface CoffeeRepository extends JpaRepository<Coffee,Integer> {
-
-    List<Coffee> findAll();
-
-    Coffee findById(int id);
 }
