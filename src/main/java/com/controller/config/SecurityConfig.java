@@ -1,5 +1,7 @@
 package com.controller.config;
 
+import com.controller.config.security.AuthorizationCodeTokenResponseClient;
+import com.controller.config.security.CustomOAuth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,9 +15,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
+import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
@@ -48,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/makeOrder","/orderList","/orderItems**","/coffee/**","/personalArea").authenticated()
                 .and()
@@ -62,8 +68,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/main")
                 .permitAll()
                 .and()
-                .oauth2Login(Customizer.withDefaults())
-                .csrf().disable();
+                .oauth2Login()
+                    .tokenEndpoint()
+                        .accessTokenResponseClient(client())
+                .and()
+                    .userInfoEndpoint()
+                        .userService(userService());
+
+
+
+    }
+
+    @Bean
+    public DefaultOAuth2UserService userService() {
+        return new CustomOAuth2UserService();
     }
 
     @Bean
@@ -97,6 +115,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    public OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> client() {
+        return new AuthorizationCodeTokenResponseClient();
+    }
+
+    @Bean
     public ClientRegistrationRepository clientRegistrationRepository() {
         return new InMemoryClientRegistrationRepository(this.githubRegistration(), vkClientRegistration());
     }
@@ -111,8 +134,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .scope("friends", "video")
                 .authorizationUri("https://oauth.vk.com/authorize")
                 .tokenUri("https://oauth.vk.com/access_token")
-//                .userInfoUri("https://www.googleapis.com/oauth2/v3/userinfo")
-                .userNameAttributeName(IdTokenClaimNames.SUB)
+                .userInfoUri("https://api.vk.com/method/users.get?v=5.95")
+                .userNameAttributeName("user_id")
 //                .jwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
                 .clientName("vk")
                 .build();
