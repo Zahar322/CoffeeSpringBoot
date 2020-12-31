@@ -73,10 +73,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .accessTokenResponseClient(client())
                 .and()
                     .userInfoEndpoint()
-                        .userService(userService());
-
-
-
+                        .userService(userService())
+                .and()
+                .defaultSuccessUrl("/makeOrder");
     }
 
     @Bean
@@ -121,7 +120,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public ClientRegistrationRepository clientRegistrationRepository() {
-        return new InMemoryClientRegistrationRepository(this.githubRegistration(), vkClientRegistration());
+        return new InMemoryClientRegistrationRepository(this.githubRegistration(), vkClientRegistration(), facebookRegistration(), instagramRegistration());
     }
 
     private ClientRegistration vkClientRegistration() {
@@ -145,6 +144,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return CommonOAuth2Provider.GITHUB.getBuilder("github")
                 .clientId("52055a70ff75a22c9dfb")
                 .clientSecret("29196bcab20b59dfcf5ac362237dd618bcc66a10")
+                .build();
+    }
+
+    private ClientRegistration facebookRegistration() {
+        return CommonOAuth2Provider.FACEBOOK.getBuilder("facebook")
+                .clientId("146438440364649")
+                .clientSecret("ff5338f3ac0bfab72a5c3beb0e72cc1c")
+                .build();
+    }
+
+    private ClientRegistration instagramRegistration() {
+        return ClientRegistration.withRegistrationId("instagram")
+                .clientId("145522007243013")
+                .clientSecret("48b7d93458f267b9753c60e12600dfcc")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .redirectUriTemplate("{baseUrl}/login/oauth2/code/{registrationId}")
+                .scope("user_profile", "user_media")
+                .authorizationUri("https://api.instagram.com/oauth/authorize")
+                .tokenUri("https://api.instagram.com/oauth/authorize")
+//                .userInfoUri("https://api.vk.com/method/users.get?v=5.95")
+//                .userNameAttributeName("user_id")
+//                .jwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
+                .clientName("instagram")
                 .build();
     }
 }
