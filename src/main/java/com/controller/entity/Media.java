@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Media {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(name = "content_type")
     private String contentType;
