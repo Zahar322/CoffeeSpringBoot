@@ -79,8 +79,10 @@ public class AdminController {
 
     @PostMapping("/addCoffee")
     public String addCoffee(@ModelAttribute Coffee coffee, @RequestParam(name = "myimage") MultipartFile image) throws IOException {
-        coffee.setMedia(mediaService.createMedia(image));
-        mediaService.uploadFile(image);
+        if (image.getSize() != 0) {
+            coffee.setMedia(mediaService.createMedia(image));
+            mediaService.uploadFile(image);
+        }
         coffeeService.save(coffee);
         return "redirect:/makeOrder";
     }

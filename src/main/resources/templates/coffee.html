@@ -54,7 +54,7 @@
     <div  class="content-not">
 
         <div class="product-item" >
-            <img th:src="${coffee.media.imagePath()}">
+            <img th:src="${coffee.media?.imagePath()}">
             <div class="product-list">
                 <h3 th:text="${coffee.title}"></h3>
                 <span class="price" th:text="'$'+${coffee.price}"></span>
