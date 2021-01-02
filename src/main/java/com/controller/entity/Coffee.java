@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Coffee {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name="title")
