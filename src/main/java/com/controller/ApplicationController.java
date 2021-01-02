@@ -64,8 +64,8 @@ public class ApplicationController {
 //    }
 
     @PostMapping("/reg")
-    public String main(@ModelAttribute("userReg")  User user, @RequestParam(name = "myimage") MultipartFile image, @RequestParam("desc") String desc) throws IOException {
-        userService.save(user, image, desc);
+    public String main(@ModelAttribute("userReg")  User user, @RequestParam("desc") String desc) throws IOException {
+        userService.save(user, null, desc);
         return "redirect:/main";
 
     }
