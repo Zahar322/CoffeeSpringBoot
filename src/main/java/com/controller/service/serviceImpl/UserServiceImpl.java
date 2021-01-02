@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user, MultipartFile file, String description) throws IOException {
-        user.setDescription(new Description(description));
+//        user.setDescription(new Description(description));
         if (file != null) {
             mediaService.uploadFile(file);
             user.setMedia(mediaService.createMedia(file));

@@ -64,8 +64,8 @@ public class ApplicationController {
 //    }
 
     @PostMapping("/reg")
-    public String main(@ModelAttribute("userReg")  User user, @RequestParam("desc") String desc) throws IOException {
-        userService.save(user, null, desc);
+    public String main(@ModelAttribute("userReg")  User user) throws IOException {
+        userService.save(user, null, null);
         return "redirect:/main";
 
     }
