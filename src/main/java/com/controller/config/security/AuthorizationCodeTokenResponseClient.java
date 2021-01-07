@@ -1,5 +1,7 @@
 package com.controller.config.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,7 @@ public class AuthorizationCodeTokenResponseClient implements OAuth2AccessTokenRe
     private Converter<OAuth2AuthorizationCodeGrantRequest, RequestEntity<?>> requestEntityConverter = new OAuth2AuthorizationCodeGrantRequestEntityConverter();
     private static Map<String, Converter<OAuth2AuthorizationCodeGrantRequest, RequestEntity<?>>> clientMap = new HashMap<>();
     private RestOperations restOperations;
+    private static final Logger logger = LoggerFactory.getLogger(AuthorizationCodeTokenResponseClient.class);
 
     static {
         clientMap.put("vk", new OAuth2VKAuthorizationCodeGrantRequestEntityConverter());
@@ -46,6 +49,7 @@ public class AuthorizationCodeTokenResponseClient implements OAuth2AccessTokenRe
 
         ResponseEntity response;
         try {
+            logger.error(request.toString());
             response = this.restOperations.exchange(request, OAuth2AccessTokenResponse.class);
         } catch (RestClientException var6) {
             OAuth2Error oauth2Error = new OAuth2Error("invalid_token_response", "An error occurred while attempting to retrieve the OAuth 2.0 Access Token Response: " + var6.getMessage(), (String)null);
@@ -53,6 +57,7 @@ public class AuthorizationCodeTokenResponseClient implements OAuth2AccessTokenRe
         }
 
         OAuth2AccessTokenResponse tokenResponse = (OAuth2AccessTokenResponse)response.getBody();
+        logger.error(tokenResponse.getAdditionalParameters().toString());
         if (CollectionUtils.isEmpty(tokenResponse.getAccessToken().getScopes())) {
             tokenResponse = OAuth2AccessTokenResponse.withResponse(tokenResponse).scopes(authorizationCodeGrantRequest.getClientRegistration().getScopes()).build();
         }
