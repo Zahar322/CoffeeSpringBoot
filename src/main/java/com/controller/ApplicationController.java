@@ -39,6 +39,11 @@ public class ApplicationController {
    @Autowired
    private MediaService mediaService;
 
+   @GetMapping("/")
+   public String content() {
+       return "content";
+   }
+
     @GetMapping("/welcome")
     public String welcome(Model model){
         model.addAttribute("users",userService.findAll());
