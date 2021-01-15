@@ -153,4 +153,10 @@ public class ApplicationController {
                              .contentType(MediaType.parseMediaType(type.replaceAll("9", "/")))
                              .body(new ByteArrayResource(file));
     }
+
+    @GetMapping("/users")
+    @ResponseBody
+    public List<User> users() {
+        return userService.findAll();
+    }
 }
