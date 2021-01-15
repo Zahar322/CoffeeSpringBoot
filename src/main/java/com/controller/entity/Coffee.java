@@ -3,10 +3,11 @@ package com.controller.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="coffee")
-public class Coffee {
+public class Coffee implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator="seq")

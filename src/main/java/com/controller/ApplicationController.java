@@ -3,6 +3,7 @@ package com.controller;
 import com.controller.entity.Order;
 import com.controller.entity.User;
 
+import com.controller.response.CoffeeResponse;
 import com.controller.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -158,5 +159,11 @@ public class ApplicationController {
     @ResponseBody
     public List<User> users() {
         return userService.findAll();
+    }
+
+    @GetMapping("/coffees")
+    @ResponseBody
+    public CoffeeResponse coffeeResponse() {
+        return new CoffeeResponse(coffeeService.findAll());
     }
 }
