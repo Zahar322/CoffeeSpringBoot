@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -85,6 +86,12 @@ public class AdminController {
         }
         coffeeService.save(coffee);
         return "redirect:/makeOrder";
+    }
+
+    @GetMapping("/users")
+    @ResponseBody
+    public List<User> users() {
+        return userService.findAll();
     }
 
 }
