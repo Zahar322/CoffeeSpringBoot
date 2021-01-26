@@ -1,9 +1,12 @@
 package com.controller;
 
+import api.CoffeeResponse;
+import com.controller.client.UsersApi;
+import com.controller.converter.CoffeeToCoffeeApiConverter;
+import com.controller.entity.Coffee;
 import com.controller.entity.Order;
 import com.controller.entity.User;
 
-import com.controller.response.CoffeeResponse;
 import com.controller.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -16,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import service.DocumentServiceClient;
 
 
 import javax.validation.Valid;
@@ -39,6 +43,12 @@ public class ApplicationController {
    private CommentService commentService;
    @Autowired
    private MediaService mediaService;
+   @Autowired
+   private UsersApi usersApi;
+   @Autowired
+   private CoffeeToCoffeeApiConverter converter;
+   @Autowired
+   private DocumentServiceClient client;
 
    @GetMapping("/")
    public String content() {
@@ -78,10 +88,11 @@ public class ApplicationController {
 
     @GetMapping("/makeOrder")
     public String makeOrder(Model model, @AuthenticationPrincipal User user){
-
+       List<Coffee> coffees = coffeeService.findAll();
         model.addAttribute("user",user);
-        model.addAttribute("coffees", coffeeService.findAll());
+        model.addAttribute("coffees", coffees);
         model.addAttribute("order",new Order());
+        client.sendMessage(new CoffeeResponse(converter.convert(coffees)));
         return "makeOrder";
     }
 
@@ -159,11 +170,5 @@ public class ApplicationController {
     @ResponseBody
     public List<User> users() {
         return userService.findAll();
-    }
-
-    @GetMapping("/coffees")
-    @ResponseBody
-    public CoffeeResponse coffeeResponse() {
-        return new CoffeeResponse(coffeeService.findAll());
     }
 }
