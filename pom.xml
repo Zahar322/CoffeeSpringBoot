@@ -54,6 +54,7 @@
     </dependencies>
 
     <properties>
+        <sonar.projectKey>Coffee</sonar.projectKey>
         <java.version>1.8</java.version>
     </properties>
 
