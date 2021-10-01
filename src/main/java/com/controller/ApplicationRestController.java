@@ -46,5 +46,10 @@ public class ApplicationRestController {
     public List<Coffee> coffees() {
         return coffeeService.findAll();
     }
+    
+    @GetMapping("/coffees_co")
+    public List<Coffee> coffees_co() {
+        return coffeeService.findAll();
+    }
 
 }
