@@ -21,7 +21,6 @@ import java.util.Locale;
 
 @Configuration
 @EnableWebMvc
-
 public class WebConfig implements WebMvcConfigurer {
 
     @Bean

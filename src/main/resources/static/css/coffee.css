@@ -43,3 +43,13 @@
     margin-top:400px;
     font-size:80px;
 }
+
+.cell {
+    width: 30px;
+    height: 30px;
+    background-color: black;
+}
+
+.red {
+    background-color: red;
+}

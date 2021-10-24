@@ -45,6 +45,21 @@ public class ApplicationController {
        return "content";
    }
 
+    @GetMapping("/conf")
+    public String conf() {
+        return "conf";
+    }
+
+    @GetMapping("/index")
+    public String index() {
+        return "index";
+    }
+
+    @GetMapping("/share")
+    public String share() {
+        return "screenshare";
+    }
+
     @GetMapping("/welcome")
     public String welcome(Model model){
         model.addAttribute("users",userService.findAll());

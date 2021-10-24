@@ -1,37 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap3.css}"/>
+    <link rel="stylesheet" th:href="@{/css/coffee.css}"/>
+    <title>Main</title>
 </head>
 <body>
-<p>
-    Тестирование онлайн
-    Определение
-    Равенство, содержащее одну переменную, называется уравнением с одной переменной.
 
-    Переменную в уравнении называют неизвестным.
+Hello
 
-    Значение переменной, при которой уравнение превращается в верное числовое равенство, называется корнем (или решением) уравнения. Решить уравнение - это значит найти все его корни или доказать, что их нет.
+<div >
+    <input type="text" id="name"><br>
+    <input type="text" id="text"><br>
+    <input type="submit" onclick="update()" value="send" id="send"><br>
+</div>
 
+<div class="text">
 
-    Равносильные уравнения
-    Два уравнения называются равносильными (или эквивалентными), если они имеют одни и те же корни на данном числовом множестве.
+</div>
 
-    Если оба уравнения не имеют решений, то они также считаются равносильными на данном числовом множестве.
+<div class="cell">fgdfg</div>
+<div class="cell"></div>
+<div class="cell"></div>
+<div class="cell"></div>
+<div class="cell"></div>
 
-    Действия с уравнениями
-    1)Любое слагаемое можно перенести из одной части уравнения в другую с противоположным знаком.
-
-
-    2) К обеим частям уравнения можно прибавить или отнять одно и то же число (или функцию).
-
-
-    3) Можно умножить или разделить обе части уравнения на одно и то же число, кроме нуля, или функцию.
+</body>
+<script>
 
 
-    Функция, которую прибавляем (отнимаем) или на которую умножаем (делим) обе части уравнения должна иметь смысл при всех допустимых значениях переменного.
-    +375296110593
-</p>
+    let socket;
+    let url;
+    let text=document.querySelector(".text");
+    let inputText=document.getElementById("text");
+    let inputName=document.getElementById("name");
+
+
+    function dataReturned(data) {
+        let message=JSON.parse(data);
+        text.innerHTML=`${text.innerHTML} <div class="name">${message.name}</div>
+                    <div>${message.text}<div>`;
+        let element = document.querySelector(".cell");
+        element.classList ? element.classList.add(message.name) : element.className += message.name;
+        return text.innerHTML;
+    }
+
+    function sendDate(data) {
+        socket.send(data);
+    }
+    function Message(name,text) {
+        this.name=name;
+        this.text=text;
+    }
+
+    function update(){
+        // let toSend=JSON.stringify([inputName.value,inputText.value]);
+        let toSend=JSON.stringify(new Message(inputName.value,inputText.value));
+        // alert(toSend);
+        // alert(socket.readyState);
+        sendDate(toSend);
+    }
+
+    window.onload=()=>{
+        url=`ws://${window.location.host}/chat`;
+        alert(url);
+        socket=new WebSocket(url);
+        socket.onopen=()=>{
+            alert("connected");
+
+        };
+        socket.onmessage=(e)=>{
+            dataReturned(e.data);
+            // alert(e.data);
+        }
+    }
+    </script>
 </body>
 </html>
